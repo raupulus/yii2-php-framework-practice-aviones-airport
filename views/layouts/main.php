@@ -38,21 +38,38 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Inicio', 'url' => ['/site/index']],
+            //['label' => 'Mis Reservas', 'url' => ['reservas/index']],
+            ['label' => 'Vuelos Disponibles', 'url' => ['vuelos/index']],
+            //['label' => 'Mi usuario', 'url' => ['/usuarios/view', 'id' => Yii::$app->user->id]],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
                 '<li>'
+                . Html::beginForm(['/reservas/index'], 'get')
+                . Html::submitButton(
+                    'Mis Reservas', ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
+                . '</li>'
+                .
+                '<li>'
+                . Html::beginForm(['/usuarios/view', 'id' => Yii::$app->user->id], 'get')
+                . Html::submitButton(
+                    'Mi usuario', ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
+                . '</li>'
+                .
+                '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    'Logout (' . Yii::$app->user->identity->nombre . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
                 . '</li>'
-            )
+            ),
         ],
     ]);
     NavBar::end();
@@ -69,7 +86,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Raúl Caro Pastorino <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>

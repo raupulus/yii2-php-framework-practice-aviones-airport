@@ -7,7 +7,7 @@ sudo: false
 language: php
 
 php:
-    - 7.2
+    - 7.0
 
 services:
     - postgresql
