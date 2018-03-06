@@ -1,7 +1,9 @@
 <?php
 
 namespace app\models;
+use function array_combine;
 use function array_diff;
+use function var_dump;
 
 /**
  * This is the model class for table "vuelos".
@@ -104,14 +106,19 @@ class Vuelos extends \yii\db\ActiveRecord
      */
     public static function listaPlazasLibres($vuelo_id) {
         $vuelo = Vuelos::find()->where(['id' =>$vuelo_id]);
-        $plazasTotales = $vuelo->column();  // plazas
-        $plazasReservadas = $vuelo->column(); // reservas
+        $reservas = Reservas::find()->where(['vuelo_id' => $vuelo_id]);
 
-        //if ($vuelo->tieneplazaslibres) {
-            return array_diff($plazasTotales, $plazasReservadas);
-        //}
+        $plazasTotales = $vuelo->select('plazas')->scalar();  // plazas
+        $plazasReservadas = $reservas->select('asiento')->column(); // reservas
 
-        return 0;
+        $plazaslibres = array_diff(range(1, $plazasTotales), $plazasReservadas);
+
+        //var_dump($plazaslibres);
+        //return $plazaslibres;
+
+        // Marca temporal -> Algo no funciona bien
+        var_dump(array_combine($plazaslibres, $plazaslibres));
+        return array_combine($plazaslibres, $plazaslibres);
     }
 
     /**

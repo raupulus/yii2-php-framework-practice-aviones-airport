@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php $vuelos = \app\models\Vuelos::listaPlazasLibres($model->id) ?>
+    <?php $vuelos = \app\models\Vuelos::listaPlazasLibres($model->vuelo_id) ?>
 
     <?php // $form->field($model, 'asiento')->textInput() ?>
 
