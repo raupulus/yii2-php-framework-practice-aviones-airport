@@ -44,7 +44,8 @@ class Reservas extends \yii\db\ActiveRecord
             // El usuario_id tiene que coincidir
             [['usuario_id'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['usuario_id' => 'id']],
 
-            [['vuelo_id'], 'exist'],
+            // El vuelo tiene que coincidir
+            [['vuelo_id'], 'exist', 'skipOnError' => true, 'targetClass' => Vuelos::className(), 'targetAttribute' => ['vuelo_id' => 'id']],
 
             // Compruebo que para un vuelo existan plazas libres
             [['vuelo_id'], function ($attribute) {

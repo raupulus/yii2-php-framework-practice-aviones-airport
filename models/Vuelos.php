@@ -113,11 +113,7 @@ class Vuelos extends \yii\db\ActiveRecord
 
         $plazaslibres = array_diff(range(1, $plazasTotales), $plazasReservadas);
 
-        //var_dump($plazaslibres);
-        //return $plazaslibres;
-
-        // Marca temporal -> Algo no funciona bien
-        var_dump(array_combine($plazaslibres, $plazaslibres));
+        // Combina creando parejas de index => value
         return array_combine($plazaslibres, $plazaslibres);
     }
 

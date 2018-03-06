@@ -9,14 +9,9 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="reservas-form">
-
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php $vuelos = \app\models\Vuelos::listaPlazasLibres($model->vuelo_id) ?>
-
-    <?php // $form->field($model, 'asiento')->textInput() ?>
-
-    <?= $form->field($model, 'asiento')->dropDownList($vuelos) ?>
+    <?= $form->field($model, 'asiento')->dropDownList($plazas) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>

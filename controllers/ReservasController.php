@@ -75,23 +75,25 @@ class ReservasController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($vuelo_id = null)
+    public function actionCreate($vuelo_id)
     {
-        if($vuelo_id == null) {
-            return $this->redirect(['site/index']);
-        }
+        $model = new Reservas([
+            'usuario_id' => Yii::$app->user->id,
+            'vuelo_id' => $vuelo_id,
+        ]);
 
-        $model = new Reservas();
-        $model->usuario_id = Yii::$app->user->id;
-        $model->vuelo_id = $vuelo_id;
-
+        // Obtiene todas las plazas libres
+        $plazas = \app\models\Vuelos::listaPlazasLibres($model->vuelo_id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view',
+                'id' => $model->id,
+            ]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'plazas' => $plazas,
         ]);
     }
 
