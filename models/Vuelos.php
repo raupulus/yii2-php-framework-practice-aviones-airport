@@ -105,7 +105,7 @@ class Vuelos extends \yii\db\ActiveRecord
      * Devuelve un Array con las plazas que aún están libres
      */
     public static function listaPlazasLibres($vuelo_id) {
-        $vuelo = Vuelos::find()->where(['id' =>$vuelo_id]);
+        $vuelo = Vuelos::find()->where(['id' => $vuelo_id]);
         $reservas = Reservas::find()->where(['vuelo_id' => $vuelo_id]);
 
         $plazasTotales = $vuelo->select('plazas')->scalar();  // plazas
